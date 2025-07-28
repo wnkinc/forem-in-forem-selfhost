@@ -27,6 +27,9 @@ module PracticalDeveloper
     # See: https://guides.rubyonrails.org/configuring.html#results-of-config-load-defaults
     config.load_defaults 6.1
 
+    # strong_migrations requires this off for safe default changes
+    config.active_record.partial_inserts = false
+
     ### FRAMEWORK DEFAULT OVERRIDES
     # Override new framework defaults to keep existing behavior.
     #
