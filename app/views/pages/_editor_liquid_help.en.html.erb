@@ -12,26 +12,26 @@
       <li class="ml-4"><%= community_name %> Tag</li>
       <li class="ml-4"><%= community_name %> User Profile</li>
       <li class="ml-4">asciinema</li>
-      <li class="ml-4">CodePen</li>
-      <li class="ml-4">CodeSandbox</li>
-      <li class="ml-4">DotNetFiddle</li>
-      <li class="ml-4">GitHub Gist, Issue or Repository</li>
-      <li class="ml-4">Glitch</li>
+      <%# <li class="ml-4">CodePen</li> %>
+      <%# <li class="ml-4">CodeSandbox</li> %>
+      <%# <li class="ml-4">DotNetFiddle</li> %>
+      <%# <li class="ml-4">GitHub Gist, Issue or Repository</li> %>
+      <%# <li class="ml-4">Glitch</li> %>
       <li class="ml-4">Instagram</li>
-      <li class="ml-4">JSFiddle</li>
-      <li class="ml-4">JSitor</li>
+      <%# <li class="ml-4">JSFiddle</li> %>
+      <%# <li class="ml-4">JSitor</li> %>
       <li class="ml-4">Loom</li>
-      <li class="ml-4">Kotlin</li>
+      <%# <li class="ml-4">Kotlin</li> %>
       <li class="ml-4">Medium</li>
-      <li class="ml-4">Next Tech</li>
+      <%# <li class="ml-4">Next Tech</li> %>
       <li class="ml-4">Reddit</li>
-      <li class="ml-4">Replit</li>
+      <%# <li class="ml-4">Replit</li> %>
       <li class="ml-4">Slideshare</li>
       <li class="ml-4">Speaker Deck</li>
       <li class="ml-4">SoundCloud</li>
       <li class="ml-4">Spotify</li>
-      <li class="ml-4">StackBlitz</li>
-      <li class="ml-4">Stackery</li>
+      <%# <li class="ml-4">StackBlitz</li> %>
+      <%# <li class="ml-4">Stackery</li> %>
       <li class="ml-4">Stack Exchange or Stack Overflow</li>
       <li class="ml-4">Twitch</li>
       <li class="ml-4">Twitter</li>
@@ -61,9 +61,9 @@
     <p>To render KaTeX inline add the "inline" option:</p>
     <pre>{% katex inline %}<br> c = \pm\sqrt{a^2 + b^2}<br>{% endkatex %}<br></pre>
 
-    <h4>RunKit</h4>
+    <%# <h4>RunKit</h4>
     <p>Put executable code within a runkit liquid block, as follows:</p>
-    <pre>{% runkit<br>// hidden setup JavaScript code goes in this preamble area<br>const hiddenVar = 42<br>%}<br>// visible, reader-editable JavaScript code goes here<br>console.log(hiddenVar)<br>{% endrunkit %}<br></pre>
+    <pre>{% runkit<br>// hidden setup JavaScript code goes in this preamble area<br>const hiddenVar = 42<br>%}<br>// visible, reader-editable JavaScript code goes here<br>console.log(hiddenVar)<br>{% endrunkit %}<br></pre> %>
 
     <% if @user_approved_liquid_tags.include? UserSubscriptionTag %>
       <h4><%= community_name %> User Subscriptions</h4>

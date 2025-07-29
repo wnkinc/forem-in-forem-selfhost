@@ -83,26 +83,35 @@ export const EditorFormattingHelp = ({ openModal }) => (
                   </span>
                 </td>
               </tr>
-              <tr>
-                <td className="ff-monospace">`inline code`</td>
-                <td>
-                  <code>inline code</code>
-                </td>
-              </tr>
-              <tr>
-                <td className="ff-monospace">
-                  <span class="fs-xs">```</span>
-                  <br />
-                  code block
-                  <br />
-                  <span class="fs-xs">```</span>
-                </td>
-                <td>
-                  <div class="highlight p-2 overflow-hidden">
-                    <code>code block</code>
-                  </div>
-                </td>
-              </tr>
+              {/*
+                The inline code and code block examples are intentionally
+                commented out to match the removal of their buttons from the
+                editor toolbar.
+              */}
+              {false && (
+                <>
+                  <tr>
+                    <td className="ff-monospace">`inline code`</td>
+                    <td>
+                      <code>inline code</code>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="ff-monospace">
+                      <span class="fs-xs">```</span>
+                      <br />
+                      code block
+                      <br />
+                      <span class="fs-xs">```</span>
+                    </td>
+                    <td>
+                      <div class="highlight p-2 overflow-hidden">
+                        <code>code block</code>
+                      </div>
+                    </td>
+                  </tr>
+                </>
+              )}
             </tbody>
           </table>
         </details>

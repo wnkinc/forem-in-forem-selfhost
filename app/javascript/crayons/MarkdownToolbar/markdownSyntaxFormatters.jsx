@@ -691,30 +691,34 @@ export const markdownSyntaxFormatters = {
         linePrefix: '> ',
       }),
   },
-  code: {
-    icon: () => <Icon src={CodeIcon} />,
-    label: 'Code',
-    getFormatting: ({ selectionStart, selectionEnd, value }) =>
-      undoOrAddFormattingForInlineSyntax({
-        selectionStart,
-        selectionEnd,
-        value,
-        prefix: '`',
-        suffix: '`',
-      }),
-  },
-  codeBlock: {
-    icon: () => <Icon src={CodeBlockIcon} />,
-    label: 'Code block',
-    getFormatting: ({ selectionStart, selectionEnd, value }) =>
-      undoOrAddFormattingForMultilineSyntax({
-        selectionStart,
-        selectionEnd,
-        value,
-        blockPrefix: '```\n',
-        blockSuffix: '\n```',
-      }),
-  },
+  /*
+   * The code and code block formatters are disabled to remove the
+   * corresponding buttons from all Markdown editors.
+   */
+  // code: {
+  //   icon: () => <Icon src={CodeIcon} />,
+  //   label: 'Code',
+  //   getFormatting: ({ selectionStart, selectionEnd, value }) =>
+  //     undoOrAddFormattingForInlineSyntax({
+  //       selectionStart,
+  //       selectionEnd,
+  //       value,
+  //       prefix: '`',
+  //       suffix: '`',
+  //     }),
+  // },
+  // codeBlock: {
+  //   icon: () => <Icon src={CodeBlockIcon} />,
+  //   label: 'Code block',
+  //   getFormatting: ({ selectionStart, selectionEnd, value }) =>
+  //     undoOrAddFormattingForMultilineSyntax({
+  //       selectionStart,
+  //       selectionEnd,
+  //       value,
+  //       blockPrefix: '```\n',
+  //       blockSuffix: '\n```',
+  //     }),
+  // },
   embed: {
     icon: () => <Icon src={EmbedIcon} />,
     label: 'Embed',
