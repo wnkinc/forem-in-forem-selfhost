@@ -4772,15 +4772,31 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@testing-library/cypress@npm:^8.0.3":
-  version: 8.0.7
-  resolution: "@testing-library/cypress@npm:8.0.7"
+"@testing-library/cypress@npm:^10.0.3":
+  version: 10.0.3
+  resolution: "@testing-library/cypress@npm:10.0.3"
   dependencies:
     "@babel/runtime": "npm:^7.14.6"
-    "@testing-library/dom": "npm:^8.1.0"
+    "@testing-library/dom": "npm:^10.1.0"
   peerDependencies:
-    cypress: ^2.1.0 || ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0 || ^9.0.0 || ^10.0.0 || ^11.0.0
-  checksum: 10c0/951a38a1adea52726a6da3b2b2ab0e882a1302b23d8b89b4fe84fe546dfe43291cbd75b20e52be65db93f5a3f09ea72d99048b10b4341e82cb43b3200064678d
+    cypress: ^12.0.0 || ^13.0.0 || ^14.0.0
+  checksum: 10c0/0e0641f3adbcc21b8af155fba45437da2fcc6cb58338a154ca68d4e66e798b31f0f9fde85925f4b2d21ffb6baba35b672da5ca30a9aad4987f91ef7e8dc181e7
+  languageName: node
+  linkType: hard
+
+"@testing-library/dom@npm:^10.1.0":
+  version: 10.4.1
+  resolution: "@testing-library/dom@npm:10.4.1"
+  dependencies:
+    "@babel/code-frame": "npm:^7.10.4"
+    "@babel/runtime": "npm:^7.12.5"
+    "@types/aria-query": "npm:^5.0.1"
+    aria-query: "npm:5.3.0"
+    dom-accessibility-api: "npm:^0.5.9"
+    lz-string: "npm:^1.5.0"
+    picocolors: "npm:1.1.1"
+    pretty-format: "npm:^27.0.2"
+  checksum: 10c0/19ce048012d395ad0468b0dbcc4d0911f6f9e39464d7a8464a587b29707eed5482000dad728f5acc4ed314d2f4d54f34982999a114d2404f36d048278db815b1
   languageName: node
   linkType: hard
 
@@ -4800,7 +4816,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@testing-library/dom@npm:^8.1.0, @testing-library/dom@npm:^8.20.1":
+"@testing-library/dom@npm:^8.20.1":
   version: 8.20.1
   resolution: "@testing-library/dom@npm:8.20.1"
   dependencies:
@@ -6329,6 +6345,15 @@ __metadata:
   dependencies:
     deep-equal: "npm:^2.0.5"
   checksum: 10c0/edcbc8044c4663d6f88f785e983e6784f98cb62b4ba1e9dd8d61b725d0203e4cfca38d676aee984c31f354103461102a3d583aa4fbe4fd0a89b679744f4e5faf
+  languageName: node
+  linkType: hard
+
+"aria-query@npm:5.3.0":
+  version: 5.3.0
+  resolution: "aria-query@npm:5.3.0"
+  dependencies:
+    dequal: "npm:^2.0.3"
+  checksum: 10c0/2bff0d4eba5852a9dd578ecf47eaef0e82cc52569b48469b0aac2db5145db0b17b7a58d9e01237706d1e14b7a1b0ac9b78e9c97027ad97679dd8f91b85da1469
   languageName: node
   linkType: hard
 
@@ -9237,7 +9262,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dequal@npm:^2.0.2":
+"dequal@npm:^2.0.2, dequal@npm:^2.0.3":
   version: 2.0.3
   resolution: "dequal@npm:2.0.3"
   checksum: 10c0/f98860cdf58b64991ae10205137c0e97d384c3a4edc7f807603887b7c4b850af1224a33d88012009f150861cbee4fa2d322c4cc04b9313bee312e47f6ecaa888
@@ -9339,7 +9364,7 @@ __metadata:
     "@storybook/builder-webpack5": "npm:^6.5.16"
     "@storybook/manager-webpack5": "npm:^6.5.16"
     "@storybook/preact": "npm:^6.5.16"
-    "@testing-library/cypress": "npm:^8.0.3"
+    "@testing-library/cypress": "npm:^10.0.3"
     "@testing-library/dom": "npm:^8.20.1"
     "@testing-library/jest-dom": "npm:^5.17.0"
     "@testing-library/preact": "npm:^2.0.1"
@@ -16968,6 +16993,13 @@ __metadata:
   version: 2.1.0
   resolution: "performance-now@npm:2.1.0"
   checksum: 10c0/22c54de06f269e29f640e0e075207af57de5052a3d15e360c09b9a8663f393f6f45902006c1e71aa8a5a1cdfb1a47fe268826f8496d6425c362f00f5bc3e85d9
+  languageName: node
+  linkType: hard
+
+"picocolors@npm:1.1.1":
+  version: 1.1.1
+  resolution: "picocolors@npm:1.1.1"
+  checksum: 10c0/e2e3e8170ab9d7c7421969adaa7e1b31434f789afb9b3f115f6b96d91945041ac3ceb02e9ec6fe6510ff036bcc0bf91e69a1772edc0b707e12b19c0f2d6bcf58
   languageName: node
   linkType: hard
 
