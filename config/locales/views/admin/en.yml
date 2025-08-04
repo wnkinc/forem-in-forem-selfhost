@@ -266,7 +266,7 @@ en:
           reactions: Reactions
           followers: Followers
           following: Following
-          badges: Badges
+          badges: Chips
           learn: Learn more
           credits:
             subtitle: Credits
@@ -311,8 +311,8 @@ en:
               restricted_liquid_tag: Restricted Liquid Tag
               single_resource_admin: Single Resource Admin
               resource_admin_article: Article Admin
-              resource_admin_badge: Badge Admin
-              resource_admin_badge_achievement: Badge Achievement Admin
+              resource_admin_badge: Chip Admin
+              resource_admin_badge_achievement: Chip Achievement Admin
               resource_admin_broadcast: Broadcast Admin
               resource_admin_comment: Comment Admin
               resource_admin_config: Config Admin
@@ -424,8 +424,8 @@ en:
           Super Admin: Super Admin
           Resource Admin: Resource Admin
           "Resource Admin: Article": "Resource Admin: Article"
-          "Resource Admin: Badge": "Resource Admin: Badge"
-          "Resource Admin: BadgeAchievement": "Resource Admin: BadgeAchievement"
+          "Resource Admin: Badge": "Resource Admin: Chip"
+          "Resource Admin: BadgeAchievement": "Resource Admin: ChipAchievement"
           "Resource Admin: Broadcast": "Resource Admin: Broadcast"
           "Resource Admin: Comment": "Resource Admin: Comment"
           "Resource Admin: Config": "Resource Admin: Config"

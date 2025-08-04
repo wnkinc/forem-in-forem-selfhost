@@ -46,7 +46,7 @@ en:
             user: You have %{count} credits.
         how:
           subtitle: How can I earn credits?
-          desc_html: Members receive <strong>5 credits</strong> for every profile badge you earn.
+          desc_html: Members receive <strong>5 credits</strong> for every profile chip you earn.
       purchase: Purchase additional credits
       tag: 'Tag: %{name}'
       status:

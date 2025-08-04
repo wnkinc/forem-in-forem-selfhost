@@ -6,14 +6,14 @@ en:
       pinned: Article Pinned!
       unpinned: Article Unpinned!
     badge_achievements_controller:
-      deleted: Badge achievement has been deleted!
-      rewarded: Badges are being rewarded. The task will finish shortly.
+      deleted: Chip achievement has been deleted!
+      rewarded: Chips are being rewarded. The task will finish shortly.
       congrats: Congrats on your achievement! 🎉 And thank you for being such a vital part of %{community}!
-      award: Please choose a badge to award
+      award: Please choose a chip to award
       wrong: Something went wrong.
     badges_controller:
-      created: Badge has been created!
-      updated: Badge has been updated!
+      created: Chip has been created!
+      updated: Chip has been updated!
     broadcasts_controller:
       created: Broadcast has been created!
       deleted: Broadcast has been deleted!

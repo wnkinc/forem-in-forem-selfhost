@@ -5,12 +5,12 @@
   data-confirmation-modal-title-value="Confirm changes"
   data-confirmation-modal-size-value="m">
   <div class="crayons-notice crayons-notice--warning mb-4">
-    <strong>Note: If you remove a badge that is automatically rewarded it will simply be re-awarded despite being removed.</strong>
+    <strong>Note: If you remove a chip that is automatically rewarded it will simply be re-awarded despite being removed.</strong>
   </div>
 
   <div class="flex crayons-card crayons-card--secondary p-2">
     <div>
-      <%= link_to "Award Badge", admin_badge_achievements_award_badges_path, class: "c-link c-link--branded c-link--block" %>
+      <%= link_to "Award Chip", admin_badge_achievements_award_badges_path, class: "c-link c-link--branded c-link--block" %>
     </div>
     <div class="ml-auto">
       <%= search_form_for @q, url: admin_badge_achievements_path, class: "flex flex-row gap-1 items-center" do |f| %>
@@ -28,8 +28,8 @@
       <tr>
         <th scope="col">User ID</th>
         <th scope="col">User</th>
-        <th scope="col">Badge</th>
-        <th scope="col">Badge Image</th>
+        <th scope="col">Chip</th>
+        <th scope="col">Chip Image</th>
       </tr>
     </thead>
     <tbody class="crayons-card">
@@ -39,7 +39,7 @@
         <td><%= badge_achievement.user.username %></td>
         <td><%= badge_achievement.badge.title %></td>
         <td class="justify-center">
-          <img class="mx-auto mt-3" width="40" height="40" src="<%= badge_achievement.badge.badge_image %>" alt="badge image" loading="lazy" />
+          <img class="mx-auto mt-3" width="40" height="40" src="<%= badge_achievement.badge.badge_image %>" alt="chip image" loading="lazy" />
         </td>
         <td>
           <button

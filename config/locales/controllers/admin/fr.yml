@@ -6,14 +6,14 @@ fr:
       pinned: Article épinglé !
       unpinned: Article désépinglé !
     badge_achievements_controller:
-      deleted: La réalisation du badge a été supprimée !
-      rewarded: Les badges sont en train d'être récompensés. La tâche sera bientôt terminée.
+      deleted: La réalisation du chip a été supprimée !
+      rewarded: Les chips sont en train d'être récompensés. La tâche sera bientôt terminée.
       congrats: Félicitations pour votre succès! 🎉 Et merci d'être une partie si essentielle de %{community} !
-      award: Veuillez choisir un badge à décerner
+      award: Veuillez choisir un chip à décerner
       wrong: Quelque chose a mal fonctionné.
     badges_controller:
-      created: Le badge a été créé !
-      updated: Le badge a été mis à jour !
+      created: Le chip a été créé !
+      updated: Le chip a été mis à jour !
     broadcasts_controller:
       created: Le Broadcast a été créée !
       deleted: Le Broadcast a été supprimée !

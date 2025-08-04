@@ -1,7 +1,7 @@
 <header class="flex justify-between mb-4 items-center">
-  <h1 class="crayons-title"><%= "Edit badge #{@badge.id}" %></h1>
+  <h1 class="crayons-title"><%= "Edit chip #{@badge.id}" %></h1>
 
-  <%= link_to "Back to All Badges", admin_badges_path, class: "c-link c-link--block" %>
+  <%= link_to "Back to All Chips", admin_badges_path, class: "c-link c-link--block" %>
 </header>
 
 <%= form_for [:admin, @badge], method: :patch do |form| %>
@@ -9,7 +9,7 @@
     <div class="crayons-field">
       <%= form.label :title, "Title", class: "crayons-field__label" %>
       <p class="crayons-field__description">
-        Badge's link is auto-generated based on the title:
+        Chip's link is auto-generated based on the title:
         <%= link_to @badge.path, @badge.path %>
       </p>
       <%= form.text_field :title, class: "crayons-textfield" %>
@@ -21,9 +21,9 @@
     </div>
 
     <div class="crayons-field">
-      <%= form.label :badge_image, "Badge image", class: "crayons-field__label" %>
+      <%= form.label :badge_image, "Chip image", class: "crayons-field__label" %>
       <% if @badge.badge_image %>
-        <img class="mx-auto mt-3" width="60" height="60" src="<%= @badge.badge_image %>" alt="badge image">
+        <img class="mx-auto mt-3" width="60" height="60" src="<%= @badge.badge_image %>" alt="chip image">
       <% end %>
       <%= form.file_field :badge_image %>
     </div>
@@ -37,12 +37,12 @@
       <%= form.check_box :allow_multiple_awards, class: "crayons-checkbox" %>
       <%= form.label :allow_multiple_awards, class: "crayons-field__label" do %>
         Allow multiple awards
-      <p class="crayons-field__description">Allows this badge to be awarded multiple times to the same user</p>
+      <p class="crayons-field__description">Allows this chip to be awarded multiple times to the same user</p>
       <% end %>
     </div>
 
     <div>
-      <%= submit_tag "Update badge", class: "c-btn c-btn--primary" %>
+      <%= submit_tag "Update chip", class: "c-btn c-btn--primary" %>
     </div>
   </div>
 <% end %>

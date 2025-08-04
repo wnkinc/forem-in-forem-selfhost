@@ -8,13 +8,13 @@ RSpec.describe "Admin visits badge achievements page" do
     visit admin_badge_achievements_path
   end
 
-  it "nests the content under Badges" do
-    expect(find("h1.crayons-title").text).to eq("Badges")
+  it "nests the content under Chips" do
+    expect(find("h1.crayons-title").text).to eq("Chips")
   end
 
-  it "highlights the Badges menu item in the sidebar" do
+  it "highlights the Chips menu item in the sidebar" do
     within('nav[aria-label="Admin"]') do
-      expect(find("[aria-current='page']").text).to eq("Badges")
+      expect(find("[aria-current='page']").text).to eq("Chips")
     end
   end
 end

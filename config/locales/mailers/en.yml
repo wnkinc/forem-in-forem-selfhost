@@ -29,7 +29,7 @@ en:
       unread_notifications:
         one: "🔥 You have %{count} unread notifications on %{community}"
         other: "🔥 You have %{count} unread notifications on %{community}"
-      new_badge: You just got a badge
+      new_badge: You just got a chip
       video_upload: Your video upload is complete
     verification_mailer:
       from: "%{community} Email Verification <%{email}>"
