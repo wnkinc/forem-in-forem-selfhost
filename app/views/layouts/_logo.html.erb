@@ -1,12 +1,37 @@
 <a href="<%= root_path %>" class="site-logo" aria-label="<%= t("views.main.aria_home", community: community_name) %>">
-  <% if Settings::General.resized_logo.present? %>
-    <img class="site-logo__img"
-         src="<%= Settings::General.resized_logo %>"
-         style="<%= "aspect-ratio: #{Settings::General.resized_logo_aspect_ratio}" if Settings::General.resized_logo_aspect_ratio.present? %>"
-         alt="<%= community_name %>">
-  <% else %>
-    <span class="site-logo__community-name truncate-at-2">
-      <%= community_name %>
-    </span>
-  <% end %>
+  <svg class="site-logo__svg" width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <style>
+      .text {
+        font-family: 'Inter', sans-serif;
+        font-weight: 700;
+        font-size: 26px;
+        fill: currentColor;
+        letter-spacing: 1px;
+      }
+      .line {
+        stroke: currentColor;
+        stroke-width: 5;
+        stroke-dasharray: 105;
+        stroke-dashoffset: 105;
+      }
+      .line1 {
+        animation: draw 0.3s ease forwards 0.3s;
+      }
+      .line2 {
+        animation: draw 0.3s ease forwards 0.7s;
+      }
+      @keyframes draw {
+        to {
+          stroke-dashoffset: 0;
+        }
+      }
+    </style>
+
+    <g transform="translate(0, -4)">
+      <text x="1.5" y="63.5" class="text">AD</text>
+      <line class="line line1" x1="13.5" y1="90" x2="83.5" y2="18" />
+      <line class="line line2" x1="83.5" y1="90" x2="13.5" y2="18" />
+      <text x="55.5" y="63.5" class="text">ICT</text>
+    </g>
+  </svg>
 </a>

@@ -1,0 +1,25 @@
+<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .text {
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 26px;
+      fill: #FFFBFE;
+      letter-spacing: 1px;
+    }
+    .x-stroke {
+      stroke: #FFFBFE;
+      stroke-width: 5; /* Increased thickness */
+    }
+  </style>
+
+  <!-- A and D -->
+  <text x="1.5" y="63.5" class="text">AD</text>
+
+  <!-- X lines crossing at the same position with thicker lines -->
+  <line class="x-stroke" x1="13.5" y1="18" x2="83.5" y2="90" />
+  <line class="x-stroke" x1="83.5" y1="18" x2="13.5" y2="90" />
+
+  <!-- ICT -->
+  <text x="55.5" y="63.5" class="text">ICT</text>
+</svg>

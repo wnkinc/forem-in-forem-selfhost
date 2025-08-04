@@ -47,7 +47,7 @@ module Settings
             default: proc { URL.local_image("social-media-cover.png") },
             validates: { url: true }
 
-    setting :favicon_url, type: :string, default: proc { URL.local_image("favicon.ico") }
+    setting :favicon_url, type: :string, default: proc { "/faviconN6.svg" }
     setting :logo_png,
             type: :string,
             default: proc { URL.local_image("icon.png") },

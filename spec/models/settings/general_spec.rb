@@ -1,6 +1,12 @@
 require "rails_helper"
 
 RSpec.describe Settings::General do
+  describe ".favicon_url" do
+    it "defaults to the svg favicon" do
+      expect(described_class.favicon_url).to include("faviconN6.svg")
+    end
+  end
+
   describe "validations" do
     describe "validating URLs" do
       let(:url_fields) do
