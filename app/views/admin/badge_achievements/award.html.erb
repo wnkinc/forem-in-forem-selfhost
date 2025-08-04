@@ -1,11 +1,11 @@
 <header class="flex justify-between items-center mb-4">
-  <h1 class="crayons-title">Award Badges</h1>
-  <%= link_to "Back to Badge Achievements", admin_badge_achievements_path, class: "c-link c-link--block" %>
+  <h1 class="crayons-title">Award Chips</h1>
+  <%= link_to "Back to Chip Achievements", admin_badge_achievements_path, class: "c-link c-link--block" %>
 </header>
 <div class="crayons-card p-6">
   <%= form_with(url: admin_badge_achievements_award_badges_path, local: true, class: "flex flex-col gap-4") do |f| %>
     <div class="crayons-field">
-      <%= f.label :badge, "Badge", class: "crayons-field__label" %>
+      <%= f.label :badge, "Chip", class: "crayons-field__label" %>
       <%= f.select("badge", @all_badges.map { |badge| [badge.title, badge.slug] }, include_blank: true) %>
     </div>
     <div class="crayons-field">
@@ -19,7 +19,7 @@
     <div class="crayons-field">
       <%= f.label :message_markdown, "Override Default Message", class: "crayons-field__label" %>
       <p class="crayons-field__description">
-        Supports Markdown. This overrides the "message" sent in notifications and emails, it does not override the badge description.
+        Supports Markdown. This overrides the "message" sent in notifications and emails, it does not override the chip description.
       </p>
       <%= f.text_area :message_markdown, size: "40x3", class: "crayons-textfield" %>
     </div>
@@ -28,10 +28,10 @@
       <%= f.label :include_default_description, "Include Default Description", class: "crayons-field__label pt-2" %>
     </div>
     <p class="crayons-field__description">
-      If checked, the default badge <em>description</em> will be included above the message. If unchecked, only the message will be included.
+      If checked, the default chip <em>description</em> will be included above the message. If unchecked, only the message will be included.
     </p>
     <div>
-      <%= f.submit "Award Badges", class: "c-btn c-btn--primary" %>
+      <%= f.submit "Award Chips", class: "c-btn c-btn--primary" %>
     </div>
   <% end %>
 </div>

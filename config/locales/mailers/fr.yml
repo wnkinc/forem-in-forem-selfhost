@@ -29,7 +29,7 @@ fr:
       unread_notifications:
         one: "🔥 Vous avez %{count} notification non lue sur %{community}"
         other: "🔥 Vous avez %{count} notifications non lues sur  %{community}"
-      new_badge: Vous venez de recevoir un badge
+      new_badge: Vous venez de recevoir un chip
       video_upload: Le téléchargement de votre vidéo est terminé
     verification_mailer:
       from: "%{community} Vérification de l'e-mail <%{email}>"

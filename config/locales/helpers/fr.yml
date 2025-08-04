@@ -57,7 +57,7 @@ fr:
         email_comment_notifications: Envoyez-moi un e-mail lorsque quelqu'un me répond dans un fil de commentaires
         email_follower_notifications: Envoyez-moi un e-mail lorsque quelqu'un me suit
         email_mention_notifications: Envoyez-moi un e-mail lorsque quelqu'un me mentionne
-        email_badge_notifications: Envoyez-moi un e-mail lorsque je reçois un badge
+        email_badge_notifications: Envoyez-moi un e-mail lorsque je reçois un chip
         email_unread_notifications: Envoyez-moi des rappels occasionnels lorsque j'ai des notifications non lues sur %{community}
         mobile_mention_notifications: Envoyez-moi une notification push lorsque quelqu'un me mentionne
         mobile_comment_notifications: Envoyez-moi une notification push lorsque quelqu'un me répond dans un fil de commentaires

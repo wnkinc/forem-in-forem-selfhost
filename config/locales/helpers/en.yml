@@ -57,7 +57,7 @@ en:
         email_comment_notifications: Send me an email when someone replies to me in a comment thread
         email_follower_notifications: Send me an email when someone new follows me
         email_mention_notifications: Send me an email when someone mentions me
-        email_badge_notifications: Send me an email when I receive a badge
+        email_badge_notifications: Send me an email when I receive a chip
         email_unread_notifications: Send me occasional reminders that I have unread notifications on %{community}
         mobile_mention_notifications: Send me a push notification when someone mentions me
         mobile_comment_notifications: Send me a push notification when someone replies to me in a comment thread

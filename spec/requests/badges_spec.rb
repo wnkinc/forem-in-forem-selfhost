@@ -11,7 +11,7 @@ RSpec.describe "Badges" do
 
       it "shows all the badges" do
         get "/badges"
-        expect(response.body).to include "Badges"
+        expect(response.body).to include "Chips"
         badges.each do |badge|
           expect(response.body).to include CGI.escapeHTML(badge.badge_image_url)
         end
@@ -21,7 +21,7 @@ RSpec.describe "Badges" do
     context "when logged out" do
       it "shows all the badges" do
         get "/badges"
-        expect(response.body).to include "Badges"
+        expect(response.body).to include "Chips"
         badges.each do |badge|
           expect(response.body).to include CGI.escapeHTML(badge.badge_image_url)
         end

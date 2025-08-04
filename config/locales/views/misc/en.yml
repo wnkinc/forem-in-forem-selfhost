@@ -3,15 +3,15 @@ en:
   views:
     badges:
       meta:
-        title: Badges
+        title: Chips
       all:
-        one: Show one badge
-        other: Show all %{count} badges
-      heading: Badges
-      desc: Receive badges for being awesome! Click on a badge to see how you can earn it.
+        one: Show one chip
+        other: Show all %{count} chips
+      heading: Chips
+      desc: Receive chips for being awesome! Click on a chip to see how you can earn it.
       icon_close: Close
       gotit: Got it
-      indicator: "%{user} earned this badge %{number} times."
+      indicator: "%{user} earned this chip %{number} times."
     campaign:
       subtitle: Stories (%{count})
       view: See all posts

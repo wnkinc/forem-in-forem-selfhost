@@ -19,8 +19,8 @@ fr:
       award_streak:
         longest: 16 semaines ! Vous avez réalisé la plus longue séquence d’écriture possible. Continuez vos incroyables contributions à notre communauté!
         message:
-          one: "Félicitations pour avoir réalisé cette séquence ! Une écriture cohérente est difficile. Le prochain badge de séquence que vous pouvez obtenir est le badge de semaine %{count}. 😉"
-          other: "Félicitations pour avoir réalisé cette séquence ! Une écriture cohérente est difficile. Le prochain badge de séquence que vous pouvez obtenir est le badge de semaine %{count}. 😉"
+          one: "Félicitations pour avoir réalisé cette séquence ! Une écriture cohérente est difficile. Le prochain chip de séquence que vous pouvez obtenir est le chip de semaine %{count}. 😉"
+          other: "Félicitations pour avoir réalisé cette séquence ! Une écriture cohérente est difficile. Le prochain chip de séquence que vous pouvez obtenir est le chip de semaine %{count}. 😉"
       award_yearly_club:
         message:
           one: Joyeux anniversaire %{community} ! Pouvez-vous croire que cela fait déjà %{count} année ?!
@@ -29,8 +29,8 @@ fr:
       thank_you: Merci beaucoup pour vos contributions !
       community_wellness:
         first: Merci de participer à une conversation constructive ! Vous avez posté deux commentaires ou plus cette semaine. Continuez comme ça pour poursuivre la série !
-        longest: 32 semaines ! Vous avez réalisé la plus longue séquence possible pour le badge Community Wellness. Un travail incroyable en m'engageant dans la communauté. Continuez vos incroyables contributions à notre communauté !
-        other: Félicitations, vous avez réalisé %{weeks} semaines consécutives pour le badge de bien-être communautaire ! Continuez à recevoir des commentaires constructifs pour continuer la séquence !
+        longest: 32 semaines ! Vous avez réalisé la plus longue séquence possible pour le chip Community Wellness. Un travail incroyable en m'engageant dans la communauté. Continuez vos incroyables contributions à notre communauté !
+        other: Félicitations, vous avez réalisé %{weeks} semaines consécutives pour le chip de bien-être communautaire ! Continuez à recevoir des commentaires constructifs pour continuer la séquence !
       thumbs_up: Merci pour vos efforts en examinant les messages et en obtenant %{count} réactions positives !
     broadcasts:
       welcome_notification:

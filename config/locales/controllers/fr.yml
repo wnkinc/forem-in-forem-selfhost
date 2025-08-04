@@ -32,7 +32,7 @@ fr:
     locked: La discussion a été verrouillée avec succès !
     unlocked: La discussion a été déverrouillée avec succès !
   email_subscriptions_controller:
-    badge_notifications: notifications de badges
+    badge_notifications: notifications de chips
     comment_notifications: notifications de commentaires
     digest_emails: "%{community} e-mails récapitulatifs"
     follower_notifications: notifications de followers

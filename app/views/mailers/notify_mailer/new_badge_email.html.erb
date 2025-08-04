@@ -1,9 +1,9 @@
 <center>
   <p>
-    Congratulations, <%= @user.name %>! You received the <b><%= @badge.title %></b> badge!
+    Congratulations, <%= @user.name %>! You received the <b><%= @badge.title %></b> chip!
   </p>
   <p style="text-align:center;padding:20px 0px">
-    <img src="<%= @badge.badge_image_url %>" style="height:200px" alt="<%= @badge.title %> badge" loading="lazy" />
+    <img src="<%= @badge.badge_image_url %>" style="height:200px" alt="<%= @badge.title %> chip" loading="lazy" />
   </p>
 
   <% if @badge_achievement.include_default_description %>

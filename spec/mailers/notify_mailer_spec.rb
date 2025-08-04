@@ -115,7 +115,7 @@ RSpec.describe NotifyMailer do
     include_examples "#renders_proper_email_headers"
 
     it "renders proper subject" do
-      expect(email.subject).to eq("You just got a badge")
+      expect(email.subject).to eq("You just got a chip")
     end
 
     it "renders proper receiver" do

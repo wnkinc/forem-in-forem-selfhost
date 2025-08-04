@@ -43,16 +43,16 @@ RSpec.describe "/admin/content_manager/badge_achievements" do
         post admin_badge_achievements_award_badges_path, params: {
           badge: badge.slug,
           usernames: usernames_string,
-          message_markdown: "you got a badge nice one"
+          message_markdown: "you got a chip nice one"
         }
         expect(BadgeAchievements::BadgeAwardWorker).to have_received(:perform_async).with(
-          usernames_array, badge.slug, "you got a badge nice one", false
+          usernames_array, badge.slug, "you got a chip nice one", false
         )
-        expect(request.flash[:success]).to include("Badges are being rewarded. The task will finish shortly.")
+        expect(request.flash[:success]).to include("Chips are being rewarded. The task will finish shortly.")
       end
     end
 
-    it "awards badges" do
+    it "awards chips" do
       allow(BadgeAchievements::BadgeAwardWorker).to receive(:perform_async)
       post admin_badge_achievements_award_badges_path, params: {
         badge: badge.slug,
@@ -65,10 +65,10 @@ RSpec.describe "/admin/content_manager/badge_achievements" do
         "Hinder me? Thou fool. No living man may hinder me!",
         false,
       )
-      expect(request.flash[:success]).to include("Badges are being rewarded. The task will finish shortly.")
+      expect(request.flash[:success]).to include("Chips are being rewarded. The task will finish shortly.")
     end
 
-    it "awards badges with default a message" do
+    it "awards chips with default a message" do
       allow(BadgeAchievements::BadgeAwardWorker).to receive(:perform_async)
       post admin_badge_achievements_award_badges_path, params: {
         badge: badge.slug,
@@ -80,7 +80,7 @@ RSpec.describe "/admin/content_manager/badge_achievements" do
                                                badge.slug,
                                                expected_message,
                                                false)
-      expect(request.flash[:success]).to include("Badges are being rewarded. The task will finish shortly.")
+      expect(request.flash[:success]).to include("Chips are being rewarded. The task will finish shortly.")
     end
 
     it "includes default description if passed as true" do
@@ -96,7 +96,7 @@ RSpec.describe "/admin/content_manager/badge_achievements" do
                                                badge.slug,
                                                expected_message,
                                                true)
-      expect(request.flash[:success]).to include("Badges are being rewarded. The task will finish shortly.")
+      expect(request.flash[:success]).to include("Chips are being rewarded. The task will finish shortly.")
     end
 
     it "does not include default description if passed as false" do
@@ -112,7 +112,7 @@ RSpec.describe "/admin/content_manager/badge_achievements" do
                                                badge.slug,
                                                expected_message,
                                                false)
-      expect(request.flash[:success]).to include("Badges are being rewarded. The task will finish shortly.")
+      expect(request.flash[:success]).to include("Chips are being rewarded. The task will finish shortly.")
     end
 
     it "does not award a badge and raises an error if a badge is not specified" do
