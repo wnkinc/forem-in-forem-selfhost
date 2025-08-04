@@ -119,18 +119,12 @@ module Authentication
     end
 
     def find_or_create_user!
-      username = provider.user_nickname
-      suspended_user = Users::SuspendedUsername.previously_suspended?(username)
-      raise ::Authentication::Errors::PreviouslySuspended if suspended_user
-
-      existing_user = User.find_by(
-        provider.user_username_field => username,
-      )
-      return existing_user if existing_user
-
       User.new.tap do |user|
-        user.assign_attributes(provider.new_user_data)
         user.assign_attributes(default_user_fields)
+        user.email = provider.user_email&.downcase
+        user.name = nil
+        user.profile_image = nil
+        user.username = nil
         user.onboarding_subforem_id = RequestStore.store[:subforem_id] if RequestStore.store[:subforem_id].present?
 
         user.set_remember_fields
@@ -138,9 +132,10 @@ module Authentication
 
         # The user must be saved in the database before
         # we assign the user to a new identity.
-        user.new_record? ? user.save! : user.save # Throw excption if new record.
+        user.save!(validate: false)
       end
     end
+
 
     def default_user_fields
       password = Devise.friendly_token(20)

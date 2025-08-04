@@ -23,22 +23,9 @@ module Authentication
       end
 
       def new_user_data
-        # Apple sends `first_name` and `last_name` as separate fields
-        name = I18n.t("services.authentication.providers.apple.name", first: info.first_name, last: info.last_name)
-
-        user_data = {
-          email: info.email,
-          apple_username: user_nickname,
-          name: name
+        {
+          email: info.email
         }
-
-        user_data[:profile_image] = if Rails.env.test?
-                                      Settings::General.mascot_image_url
-                                    else
-                                      Images::ProfileImageGenerator.call
-                                    end
-
-        user_data
       end
 
       def existing_user_data

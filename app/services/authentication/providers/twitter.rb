@@ -24,14 +24,8 @@ module Authentication
       end
 
       def new_user_data
-        name = raw_info.name.presence || info.name
-        remote_profile_image_url = info.image.to_s.gsub("_normal", "")
-
         {
-          email: info.email.to_s,
-          name: name,
-          remote_profile_image_url: Images::SafeRemoteProfileImageUrl.call(remote_profile_image_url),
-          twitter_username: info.nickname
+          email: info.email.to_s
         }
       end
 

@@ -22,10 +22,7 @@ module Authentication
 
       def new_user_data
         {
-          name: info.name,
-          email: info.email || "",
-          remote_profile_image_url: Images::SafeRemoteProfileImageUrl.call(@info.image),
-          google_oauth2_username: user_nickname || (0...8).map { rand(65..90).chr }.join
+          email: info.email || ""
         }
       end
 

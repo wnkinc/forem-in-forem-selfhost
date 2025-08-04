@@ -21,12 +21,8 @@ module Authentication
       end
 
       def new_user_data
-        image_url = @info.image.gsub("http://", "https://")
         {
-          name: @info.name,
-          email: @info.email || "",
-          remote_profile_image_url: Images::SafeRemoteProfileImageUrl.call(image_url),
-          facebook_username: user_nickname
+          email: @info.email || ""
         }
       end
 
