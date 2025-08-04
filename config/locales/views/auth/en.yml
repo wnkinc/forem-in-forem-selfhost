@@ -76,5 +76,5 @@ en:
         step_5: 'For Empowering Community 🌱'
       tagline: We are a place where coders share, stay up-to-date and grow their careers.
       title:
-        text_html: '%{name} is a community of %{maybe_size}amazing humans.'
+        text_html: '%{name} is a community of %{maybe_size}amazing humans'
         size: '%{num} '
