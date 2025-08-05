@@ -108,6 +108,10 @@
     </aside>
 
     <main id="main-content" class="crayons-layout__content grid gap-4">
+      <script>
+        // expose to your JS whether this article is anonymous
+        window.commentableIsAnonymous = <%= @article.anonymous? %>;
+      </script>
       <div class="article-wrapper">
         <% unless @article.current_state.published? %>
           <div class="crayons-notice crayons-notice--danger mb-4" aria-live="polite">
@@ -129,7 +133,9 @@
           data-author-id="<%= @article.user_id %>"
           data-author-name="<%= @article.cached_user_name %>"
           data-author-username="<%= @article.username %>"
+          <% unless @article.anonymous? %>
           data-co-author-ids="<%= @article.co_author_ids.join(",") %>"
+          <% end %>
           data-path="<%= @article.path %>"
           data-pin-path="<%= stories_feed_pinned_article_path %>"
           data-pinned-article-id="<%= @pinned_article_id %>"
@@ -206,8 +212,10 @@
                       <% if @article.published_timestamp.present? %>
                         <%= t("views.articles.#{@article.current_state}_html", date: local_date(@article.published_timestamp, show_year: @article.displayable_published_at.year != Time.current.year)) %>
                       <% end %>
-                      <% if @article.co_author_ids.present? %>
-                        <%= t("views.articles.co_authors_html", names: @article.co_author_name_and_path.html_safe) %>
+                      <% unless @article.anonymous? %>
+                        <% if @article.co_author_ids.present? %>
+                          <%= t("views.articles.co_authors_html", names: @article.co_author_name_and_path.html_safe) %>
+                        <% end %>
                       <% end %>
 
                       <% if should_show_updated_on?(@article) %>

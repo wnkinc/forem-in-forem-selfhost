@@ -461,17 +461,16 @@ function initializeCommentDate() {
 function handleHiddenComments(commentableType){
   const currentUser = userData();
   const commentableAuthorIds = [];
-  let coAuthorIds = '';
   if(commentableType === "Article"){
     const articleContainer = document.querySelector('#article-show-container');
     if(articleContainer){
       if (articleContainer.dataset) {
         commentableAuthorIds.push(articleContainer.dataset.authorId);
-        coAuthorIds = articleContainer.dataset.coAuthorIds;
-        if(coAuthorIds){
-          coAuthorIds.split(',').forEach(coAuthorId => {
-            commentableAuthorIds.push(coAuthorId);
-          });
+        if (!window.commentableIsAnonymous) {
+          const coAuthorString = articleContainer.dataset.coAuthorIds;
+          if (coAuthorString) {
+            coAuthorString.split(',').forEach(id => commentableAuthorIds.push(id));
+          }
         }
       }
     }
@@ -480,11 +479,11 @@ function handleHiddenComments(commentableType){
       if(commentsContainer){
         if(commentsContainer.dataset) {
           commentableAuthorIds.push(commentsContainer.dataset.commentableAuthorId);
-          coAuthorIds = commentsContainer.dataset.commentableCoAuthorIds;
-          if(coAuthorIds){
-            coAuthorIds.split(',').forEach(coAuthorId => {
-              commentableAuthorIds.push(coAuthorId);
-            });
+          if (!window.commentableIsAnonymous) {
+            const coAuthorString = commentsContainer.dataset.commentableCoAuthorIds;
+            if (coAuthorString) {
+              coAuthorString.split(',').forEach(id => commentableAuthorIds.push(id));
+            }
           }
         }
       }

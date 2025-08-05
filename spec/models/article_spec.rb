@@ -255,6 +255,31 @@ RSpec.describe Article do
       end
     end
 
+    describe "anonymous publication" do
+      let(:mascot) { create(:user) }
+
+      before do
+        allow(Settings::General).to receive(:mascot_user_id).and_return(mascot.id)
+      end
+
+      it "detects anonymous tag" do
+        article = build(:article, tag_list: "test,anonymous")
+        expect(article.tag_names).to include("anonymous")
+        expect(article.anonymous?).to be(true)
+      end
+
+      it "knows when to publish as anonymous" do
+        article = build(:article, user: user, tag_list: "anonymous", published: true)
+        expect(article.publish_as_anonymous?).to be(true)
+      end
+
+      it "reassigns author to mascot and stores original as co-author" do
+        anon_article = create(:article, user: user, tag_list: "anonymous")
+        expect(anon_article.user_id).to eq(mascot.id)
+        expect(anon_article.co_author_ids).to include(user.id)
+      end
+    end
+
     context "when published" do
       before do
         # rubocop:disable RSpec/NamedSubject

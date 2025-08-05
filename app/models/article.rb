@@ -257,6 +257,7 @@ class Article < ApplicationRecord
   before_save :fetch_video_duration
   before_save :set_caches
   before_save :detect_language
+  before_save :assign_mascot_author_if_anonymous, if: :publish_as_anonymous?
   before_create :create_password
   before_destroy :before_destroy_actions, prepend: true
 
@@ -689,6 +690,24 @@ class Article < ApplicationRecord
 
   def co_author_ids_list=(list_of_co_author_ids)
     self.co_author_ids = list_of_co_author_ids.split(",").map(&:strip)
+  end
+
+  def tag_names
+    (cached_tag_list.presence || tag_list.to_s).split(', ')
+  end
+
+  def anonymous?
+    tag_names.include?("anonymous")
+  end
+
+  def publish_as_anonymous?
+    anonymous? && published? && user_id != Settings::General.mascot_user_id
+  end
+
+  def assign_mascot_author_if_anonymous
+    original = user_id
+    self.user_id = Settings::General.mascot_user_id
+    self.co_author_ids = (co_author_ids + [original]).uniq
   end
 
   def plain_html

@@ -20,6 +20,18 @@ RSpec.describe "Comments" do
       expect(response.body).to include(comment.processed_html)
     end
 
+    context "when article is anonymous" do
+      it "hides co-author info and OP badge" do
+        mascot = create(:user)
+        allow(Settings::General).to receive(:mascot_user_id).and_return(mascot.id)
+        anon_article = create(:article, user: user, tag_list: "anonymous", published: true)
+        create(:comment, commentable: anon_article, user: user)
+        get "#{anon_article.path}/comments"
+        expect(response.body).not_to include("data-commentable-co-author-ids")
+        expect(response.body).not_to include("spec-op-author")
+      end
+    end
+
     context "when there are comments with different score" do
       let!(:spam_comment) do
         create(:comment, commentable: article, user: user, score: -1000, body_markdown: "spammer-comment")

@@ -77,4 +77,26 @@ RSpec.describe "articles/show" do
     expect(rendered).to have_text(expected_date)
     expect(rendered).not_to have_text("</time>")
   end
+
+  context "when article is anonymous" do
+    let(:mascot) { create(:user) }
+    let(:user1) { create(:user) }
+    let(:article1) { create(:article, user: user1, tag_list: "anonymous", show_comments: true).reload }
+
+    before do
+      allow(Settings::General).to receive(:mascot_user_id).and_return(mascot.id)
+      article1
+      assign(:user, article1.user)
+      assign(:article, article1.decorate)
+      assign(:comment, Comment.new)
+      assign(:comments_order, "top")
+      allow(view).to receive(:internal_navigation?).and_return(false)
+    end
+
+    it "does not expose co-author information" do
+      render
+      expect(rendered).not_to include("data-co-author-ids")
+      expect(rendered).not_to include(user1.name)
+    end
+  end
 end

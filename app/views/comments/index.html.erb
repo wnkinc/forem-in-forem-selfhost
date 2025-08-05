@@ -125,7 +125,9 @@
     data-commentable-id="<%= @commentable&.id %>"
     data-commentable-type="<%= @commentable&.class&.name %>"
     data-commentable-author-id="<%= @commentable&.user_id %>"
-    data-commentable-co-author-ids="<%= @commentable&.co_author_ids&.join(",") %>">
+    <% unless @commentable.anonymous? %>
+    data-commentable-co-author-ids="<%= @commentable.co_author_ids&.join(",") %>"
+    <% end %>>
 
     <% unless @root_comment %>
       <% if @discussion_lock %>

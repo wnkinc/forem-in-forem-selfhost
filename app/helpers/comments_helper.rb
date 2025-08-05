@@ -35,11 +35,10 @@ module CommentsHelper
   end
 
   def commentable_author_is_op?(commentable, comment)
-    commentable &&
-      [
-        commentable.user_id,
-        commentable.co_author_ids,
-      ].flatten.any?(comment.user_id)
+    return false unless commentable
+    return false if commentable.anonymous?
+
+    [commentable.user_id, *commentable.co_author_ids].include?(comment.user_id)
   end
 
   def get_ama_or_op_banner(commentable)

@@ -334,7 +334,7 @@ class StoriesController < ApplicationController
   end
 
   def assign_co_authors
-    return if @article.co_author_ids.blank?
+    return if @article.anonymous? || @article.co_author_ids.blank?
 
     @co_author_ids = User.find(@article.co_author_ids)
   end
