@@ -572,10 +572,31 @@ class Article < ApplicationRecord
     URL.article(self)
   end
 
+  def anonymous?
+    cached_tag_list_array.include?("anonymous")
+  end
+
+  def display_user
+    anonymous? ? Users::AnonymousAuthor : user
+  end
+
   def username
+    return Users::AnonymousAuthor.username if anonymous?
     return organization.slug if organization
 
     user.username
+  end
+
+  def cached_user
+    anonymous? ? Articles::CachedEntity.from_object(Users::AnonymousAuthor) : super
+  end
+
+  def cached_user_name
+    anonymous? ? Users::AnonymousAuthor.name : super
+  end
+
+  def cached_user_username
+    anonymous? ? Users::AnonymousAuthor.username : super
   end
 
   def current_state_path
@@ -834,9 +855,27 @@ class Article < ApplicationRecord
   def set_caches
     return unless user
 
-    self.cached_user_name = user_name
-    self.cached_user_username = user_username
     self.path = calculated_path.downcase
+
+    if anonymous?
+      default_image_90 = Images::Profile.call(nil, length: 90)
+      default_image = Images::Profile.call(nil)
+
+      self.cached_user_name = "Anonymous"
+      self.cached_user_username = nil
+      self.cached_user = Articles::CachedEntity.new(
+        "Anonymous",
+        nil,
+        nil,
+        default_image_90,
+        default_image,
+        false,
+      )
+    else
+      self.cached_user_name = user_name
+      self.cached_user_username = user_username
+      self.cached_user = Articles::CachedEntity.from_object(user)
+    end
   end
 
   def normalize_title
@@ -1140,7 +1179,21 @@ class Article < ApplicationRecord
 
   def set_cached_entities
     self.cached_organization = organization ? Articles::CachedEntity.from_object(organization) : nil
-    self.cached_user = user ? Articles::CachedEntity.from_object(user) : nil
+
+    if anonymous?
+      default_image_90 = Images::Profile.call(nil, length: 90)
+      default_image = Images::Profile.call(nil)
+      self.cached_user = Articles::CachedEntity.new(
+        "Anonymous",
+        nil,
+        nil,
+        default_image_90,
+        default_image,
+        false,
+      )
+    else
+      self.cached_user = user ? Articles::CachedEntity.from_object(user) : nil
+    end
   end
 
   def set_all_dates

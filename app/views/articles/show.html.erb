@@ -127,8 +127,8 @@
           data-article-id="<%= @article.id %>"
           data-article-slug="<%= @article.slug %>"
           data-author-id="<%= @article.user_id %>"
-          data-author-name="<%= @article.cached_user_name %>"
-          data-author-username="<%= @article.username %>"
+          data-author-name="<%= @article.anonymous? ? 'Anonymous' : @article.cached_user_name %>"
+          data-author-username="<%= @article.anonymous? ? 'anonymous' : @article.username %>"
           data-co-author-ids="<%= @article.co_author_ids.join(",") %>"
           data-path="<%= @article.path %>"
           data-pin-path="<%= stories_feed_pinned_article_path %>"
@@ -181,7 +181,9 @@
                 <div id="action-space" class="crayons-article__actions mb-4 s:mb-0 s:order-last"></div>
                 <div class="flex flex-1 mb-5 items-start">
                   <div class="relative">
-                    <% if @organization %>
+                    <% if @article.anonymous? %>
+                      <img class="radius-full align-middle" src="<%= Images::Profile::BACKUP_LINK %>" width="40" height="40" alt="Anonymous profile image" />
+                    <% elsif @organization %>
                       <a href="<%= @organization.path %>"><img src="<%= @organization.profile_image_url_for(length: 50) %>" class="radius-default align-middle" width="40" height="40" alt="<%= @organization.name %> profile image"></a>
                       <a href="/<%= @user.username %>" class="absolute -right-2 -bottom-2 radius-full border border-solid border-2 border-base-inverted inline-flex">
                         <img class="radius-full align-middle" src="<%= @user.profile_image_url_for(length: 50) %>" width="24" height="24" alt="<%= @user.name %>" />
@@ -191,22 +193,26 @@
                     <% end %>
                   </div>
                   <div class="pl-3 flex-1">
-                    <a href="/<%= @user.username %>" class="crayons-link fw-bold"><%= @user.name %></a>
-                    <%= subscription_icon(@user) %>
-                    <% if @user.spam? %>
-                      <span class="c-indicator c-indicator--danger">Spam</span>
-                    <% end %>
-                    <% if @organization %>
-                      <%= t("views.articles.for_org_html",
-                            start: tag("span", { class: "color-base-60" }, true),
-                            end: "</span>".html_safe,
-                            org: tag.a(@organization.name, href: @organization.path, class: "crayons-link")) %>
+                    <% if @article.anonymous? %>
+                      <span class="fw-bold">Anonymous</span>
+                    <% else %>
+                      <a href="/<%= @user.username %>" class="crayons-link fw-bold"><%= @user.name %></a>
+                      <%= subscription_icon(@user) %>
+                      <% if @user.spam? %>
+                        <span class="c-indicator c-indicator--danger">Spam</span>
+                      <% end %>
+                      <% if @organization %>
+                        <%= t("views.articles.for_org_html",
+                              start: tag("span", { class: "color-base-60" }, true),
+                              end: "</span>".html_safe,
+                              org: tag.a(@organization.name, href: @organization.path, class: "crayons-link")) %>
+                      <% end %>
                     <% end %>
                     <p class="fs-xs color-base-60">
                       <% if @article.published_timestamp.present? %>
                         <%= t("views.articles.#{@article.current_state}_html", date: local_date(@article.published_timestamp, show_year: @article.displayable_published_at.year != Time.current.year)) %>
                       <% end %>
-                      <% if @article.co_author_ids.present? %>
+                      <% if @article.co_author_ids.present? && !@article.anonymous? %>
                         <%= t("views.articles.co_authors_html", names: @article.co_author_name_and_path.html_safe) %>
                       <% end %>
 
