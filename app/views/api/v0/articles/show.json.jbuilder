@@ -10,7 +10,7 @@ json.tags @article.cached_tag_list_array
 json.body_html @article.processed_html
 json.body_markdown @article.body_markdown
 
-json.partial! "api/v0/shared/user", user: @article.user
+json.partial! "api/v0/shared/user", user: @article.display_user
 
 if @article.organization
   json.partial! "api/v0/shared/organization", organization: @article.organization

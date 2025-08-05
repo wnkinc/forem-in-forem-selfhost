@@ -40,11 +40,11 @@ module Homepage
     attribute :flare_tag, ->(article, params) { params.dig(:tag_flares, article.id) }
 
     attribute :user do |article|
-      user = article.user
+      user = article.display_user
 
       {
         name: user.name,
-        profile_image_90: user.profile_image_90,
+        profile_image_90: user.profile_image_url_for(length: 90),
         username: user.username
       }
     end

@@ -304,7 +304,7 @@ class StoriesController < ApplicationController
     @article_show = true
 
     @discussion_lock = @article.discussion_lock
-    @user = @article.user
+    @user = @article.display_user
     @organization = @article.organization
     @comments_order = fetch_sort_order
 
