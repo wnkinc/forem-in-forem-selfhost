@@ -22,8 +22,8 @@ RSpec.describe "Comments" do
 
     context "when article is anonymous" do
       it "hides co-author info and OP badge" do
-        mascot = create(:user)
-        allow(Settings::General).to receive(:mascot_user_id).and_return(mascot.id)
+        anon = create(:user, username: "anonymous")
+        allow(User).to receive(:anonymous_account).and_return(anon)
         anon_article = create(:article, user: user, tag_list: "anonymous", published: true)
         create(:comment, commentable: anon_article, user: user)
         get "#{anon_article.path}/comments"

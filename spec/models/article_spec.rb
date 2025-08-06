@@ -256,10 +256,10 @@ RSpec.describe Article do
     end
 
     describe "anonymous publication" do
-      let(:mascot) { create(:user) }
+      let(:anonymous_user) { create(:user, username: "anonymous") }
 
       before do
-        allow(Settings::General).to receive(:mascot_user_id).and_return(mascot.id)
+        allow(User).to receive(:anonymous_account).and_return(anonymous_user)
       end
 
       it "detects anonymous tag" do
@@ -275,7 +275,7 @@ RSpec.describe Article do
 
       it "reassigns author to mascot and stores original as co-author" do
         anon_article = create(:article, user: user, tag_list: "anonymous")
-        expect(anon_article.user_id).to eq(mascot.id)
+        expect(anon_article.user_id).to eq(anonymous_user.id)
         expect(anon_article.co_author_ids).to include(user.id)
       end
     end

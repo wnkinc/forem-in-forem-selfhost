@@ -12,8 +12,8 @@ RSpec.describe CommentsHelper, type: :helper do
 
     it "returns false for co-author on anonymous article" do
       author = create(:user)
-      mascot = create(:user)
-      allow(Settings::General).to receive(:mascot_user_id).and_return(mascot.id)
+      anon = create(:user, username: "anonymous")
+      allow(User).to receive(:anonymous_account).and_return(anon)
       article = create(:article, user: author, tag_list: "anonymous")
       comment = create(:comment, commentable: article, user: author)
       expect(helper.commentable_author_is_op?(article, comment)).to be(false)

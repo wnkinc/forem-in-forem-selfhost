@@ -156,6 +156,8 @@ class ArticlesController < ApplicationController
         render json: { id: article.id, current_state_path: article.decorate.current_state_path }, status: :ok
       end
     else
+      Rails.logger.debug "‼️ Article failed validations: #{article.errors.full_messages.inspect}"
+      
       render json: article.errors.to_json, status: :unprocessable_entity
     end
   end
@@ -307,35 +309,61 @@ class ArticlesController < ApplicationController
   def article_params_json
     return @article_params_json if @article_params_json
 
-    params.require(:article) # to trigger the correct exception in case `:article` is missing
+    # Ensure the top-level :article key is present
+    params.require(:article)
 
+    # Convert incoming camelCase keys to snake_case
     params["article"].transform_keys!(&:underscore)
 
-    allowed_params = if params["article"]["version"] == "v1"
-                       %i[body_markdown]
-                     else
-                       %i[
-                         title body_markdown main_image published description video_thumbnail_url
-                         tag_list canonical_url series collection_id archived published_at timezone
-                         published_at_date published_at_time type_of body_url subforem_id
-                       ]
-                     end
+    # Extract the front-end's tag_list string into an array of tags
+    if (raw = params["article"].delete("tag_list")).present?
+      params["article"]["tags"] = raw.split(",").map(&:strip)
+    end
 
-    # NOTE: the organization logic is still a little counter intuitive but this should
-    # fix the bug <https://github.com/forem/forem/issues/2871>
+    # Build allowed_params for v1 vs v2
+    allowed_params = if params["article"]["version"] == "v1"
+      # v1 only permits body_markdown
+      %i[body_markdown]
+    else
+      # v2 permits everything below, and an array of tags
+      [
+        :title,
+        :body_markdown,
+        :main_image,
+        :published,
+        :description,
+        :video_thumbnail_url,
+        :canonical_url,
+        :series,
+        :collection_id,
+        :archived,
+        :published_at,
+        :timezone,
+        :published_at_date,
+        :published_at_time,
+        :type_of,
+        :body_url,
+        :subforem_id,
+        { tags: [] }
+      ]
+    end
+
+    # Inject org/admin → co-author privileges
     if org_admin_user_change_privilege
-      allowed_params << :user_id
-      allowed_params << :co_author_ids_list
-    elsif params["article"]["organization_id"] && allowed_to_change_org_id?
-      # change the organization of the article only if explicitly asked to do so
+      allowed_params += %i[user_id co_author_ids_list]
+    elsif params["article"]["organization_id"].present? && allowed_to_change_org_id?
       allowed_params << :organization_id
     end
 
+    # Handle published_at_time/date → published_at conversion
     manage_published_at_params
 
-    @article_params_json = params.require(:article).permit(allowed_params)
+    # Final permit
+    @article_params_json = params
+      .require(:article)
+      .permit(allowed_params)
   end
-
+  
   def manage_published_at_params
     time_zone_str = params["article"].delete("timezone")
 

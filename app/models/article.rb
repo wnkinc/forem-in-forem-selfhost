@@ -236,12 +236,15 @@ class Article < ApplicationRecord
   validate :restrict_type_based_on_role
   validate :canonical_url_must_not_have_spaces
   validate :validate_collection_permission
-  validate :validate_tag
+  validate :validate_tag, unless: -> { anonymous? }
   validate :validate_video
   validate :user_mentions_in_markdown
-  validate :validate_co_authors, unless: -> { co_author_ids.blank? }
-  validate :validate_co_authors_must_not_be_the_same, unless: -> { co_author_ids.blank? }
-  validate :validate_co_authors_exist, unless: -> { co_author_ids.blank? }
+  validate :validate_co_authors,
+           unless: -> { co_author_ids.blank? || anonymous? }
+  validate :validate_co_authors_must_not_be_the_same,
+           unless: -> { co_author_ids.blank? || anonymous? }
+  validate :validate_co_authors_exist,
+           unless: -> { co_author_ids.blank? || anonymous? }
 
   before_validation :set_markdown_from_body_url, if: :body_url?
   before_validation :evaluate_markdown, :create_slug, :set_published_date
@@ -257,7 +260,7 @@ class Article < ApplicationRecord
   before_save :fetch_video_duration
   before_save :set_caches
   before_save :detect_language
-  before_save :assign_mascot_author_if_anonymous, if: :publish_as_anonymous?
+  before_validation :assign_anonymous_author_if_anonymous, if: :publish_as_anonymous?
   before_create :create_password
   before_destroy :before_destroy_actions, prepend: true
 
@@ -701,12 +704,12 @@ class Article < ApplicationRecord
   end
 
   def publish_as_anonymous?
-    anonymous? && published? && user_id != Settings::General.mascot_user_id
+    anonymous? && published? && user_id != User.anonymous_account.id
   end
 
-  def assign_mascot_author_if_anonymous
+  def assign_anonymous_author_if_anonymous
     original = user_id
-    self.user_id = Settings::General.mascot_user_id
+    self.user_id = User.anonymous_account.id
     self.co_author_ids = (co_author_ids + [original]).uniq
   end
 

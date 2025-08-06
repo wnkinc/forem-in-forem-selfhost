@@ -268,6 +268,17 @@ class User < ApplicationRecord
     find_by(id: Settings::General.mascot_user_id)
   end
 
+  def self.anonymous_account
+    find_or_create_by!(email: "support@adxict.com") do |u|
+      u.username = "anonymous"
+      u.name = "anonymous"
+      u.password = "123abcA!"
+      u.password_confirmation = "123abcA!"
+      u.confirmed_at = Time.current
+      u.registered_at = Time.current
+    end
+  end
+
   def good_standing_followers_count
     Follow.non_suspended("User", id).count
   end
