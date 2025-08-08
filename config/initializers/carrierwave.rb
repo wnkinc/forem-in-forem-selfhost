@@ -27,7 +27,9 @@ module CarrierWaveInitializer
         provider: "AWS",
         aws_access_key_id: ApplicationConfig["AWS_ID"],
         aws_secret_access_key: ApplicationConfig["AWS_SECRET"],
-        region: ApplicationConfig["AWS_UPLOAD_REGION"].presence || ApplicationConfig["AWS_DEFAULT_REGION"]
+        region: ApplicationConfig["AWS_UPLOAD_REGION"].presence || ApplicationConfig["AWS_DEFAULT_REGION"],
+        endpoint: ApplicationConfig["AWS_S3_ENDPOINT"],
+        path_style: true
       }
     end
   end
@@ -42,7 +44,9 @@ module CarrierWaveInitializer
       config.fog_credentials = {
         provider: "AWS",
         use_iam_profile: true,
-        region: "us-east-2"
+        region: "us-east-2",
+        endpoint: ApplicationConfig["AWS_S3_ENDPOINT"],
+        path_style: true,
       }
     end
   end
