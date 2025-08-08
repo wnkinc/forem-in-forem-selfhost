@@ -29,7 +29,14 @@ module CarrierWaveInitializer
         aws_secret_access_key: ApplicationConfig["AWS_SECRET"],
         region: ApplicationConfig["AWS_UPLOAD_REGION"].presence || ApplicationConfig["AWS_DEFAULT_REGION"],
         endpoint: ApplicationConfig["AWS_S3_ENDPOINT"],
-        path_style: true
+        path_style: true,
+        # disable all chunked / streaming signatures:
+        aws_signature_version:      4,
+        chunked_upload:             false,
+        aws_chunked:                false,
+        aws_chunked_threshold:      0,
+        aws_chunked_size_threshold: 0,
+        aws_unsigned_payload:       true,
       }
     end
   end
@@ -47,6 +54,13 @@ module CarrierWaveInitializer
         region: "us-east-2",
         endpoint: ApplicationConfig["AWS_S3_ENDPOINT"],
         path_style: true,
+        # disable all chunked / streaming signatures:
+        aws_signature_version:      4,
+        chunked_upload:             false,
+        aws_chunked:                false,
+        aws_chunked_threshold:      0,
+        aws_chunked_size_threshold: 0,
+        aws_unsigned_payload:       true,
       }
     end
   end
