@@ -399,7 +399,8 @@ class ApplicationController < ActionController::Base
   end
 
   def bust_content_change_caches
-    EdgeCache::Bust.call(CONTENT_CHANGE_PATHS)
+    urls = CONTENT_CHANGE_PATHS.map { |p| URL.url(p) }
+    EdgeCache::Purger.purge_urls(urls)
     Settings::General.admin_action_taken_at = Time.current # Used as cache key
   end
 

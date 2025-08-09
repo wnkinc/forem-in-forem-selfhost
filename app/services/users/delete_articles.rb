@@ -16,7 +16,6 @@ module Users
         end
         article.discussion_lock&.delete
         article.delete
-        article.purge
       end
       virtual_articles.each do |article|
         EdgeCache::BustArticle.call(article)

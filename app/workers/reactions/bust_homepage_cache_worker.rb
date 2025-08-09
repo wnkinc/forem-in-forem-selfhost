@@ -12,11 +12,8 @@ module Reactions
       return unless featured_articles_ids.include?(reaction.reactable_id)
 
       reaction.reactable.touch
-      cache_bust = EdgeCache::Bust.new
-      cache_bust.call("/")
-      cache_bust.call("/")
-      cache_bust.call("/?i=i")
-      cache_bust.call("?i=i")
+      urls = ["/", "/?i=i"].map { |p| URL.url(p) }
+      EdgeCache::Purger.purge_urls(urls)
     end
   end
 end

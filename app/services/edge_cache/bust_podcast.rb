@@ -3,8 +3,7 @@ module EdgeCache
     def self.call(path)
       return unless path
 
-      cache_bust = EdgeCache::Bust.new
-      cache_bust.call("/#{path}")
+      EdgeCache::Purger.purge_urls([URL.url("/#{path}")])
     end
   end
 end

@@ -3,9 +3,12 @@ module EdgeCache
     def self.call(slug)
       return unless slug
 
-      cache_bust = EdgeCache::Bust.new
-      cache_bust.call("/page/#{slug}")
-      cache_bust.call("/#{slug}")
+      urls = [
+        URL.url("/page/#{slug}"),
+        URL.url("/#{slug}"),
+      ]
+
+      EdgeCache::Purger.purge_urls(urls)
     end
   end
 end

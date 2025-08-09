@@ -31,8 +31,10 @@ class ProfilePinsController < ApplicationController
   end
 
   def bust_user_profile
-    cache_bust = EdgeCache::Bust.new
-    cache_bust.call(current_user.path)
-    cache_bust.call("#{current_user.path}?i=i")
+    urls = [
+      URL.url(current_user.path),
+      URL.url("#{current_user.path}?i=i"),
+    ]
+    EdgeCache::Purger.purge_urls(urls)
   end
 end

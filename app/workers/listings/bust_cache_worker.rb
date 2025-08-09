@@ -5,7 +5,11 @@ module Listings
 
       return unless listing
 
-      EdgeCache::BustListings.call(listing)
+      urls = [
+        URL.url(listing.path),
+        URL.url("#{listing.path}?i=i"),
+      ]
+      EdgeCache::Purger.purge_urls(urls)
     end
   end
 end

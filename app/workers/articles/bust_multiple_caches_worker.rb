@@ -5,9 +5,11 @@ module Articles
 
     def perform(article_ids)
       Article.select(:id, :path).where(id: article_ids).find_each do |article|
-        cache_bust = EdgeCache::Bust.new
-        cache_bust.call(article.path)
-        cache_bust.call("#{article.path}?i=i")
+        urls = [
+          URL.url(article.path),
+          URL.url("#{article.path}?i=i"),
+        ]
+        EdgeCache::Purger.purge_urls(urls)
       end
     end
   end

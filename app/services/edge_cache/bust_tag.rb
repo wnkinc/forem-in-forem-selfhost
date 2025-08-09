@@ -3,12 +3,13 @@ module EdgeCache
     def self.call(tag)
       return unless tag
 
-      tag.purge
+      urls = [
+        URL.url("/t/#{tag.name}"),
+        URL.url("/t/#{tag.name}/"),
+        URL.url("/tags"),
+      ]
 
-      cache_bust = EdgeCache::Bust.new
-      cache_bust.call("/t/#{tag.name}")
-      cache_bust.call("/t/#{tag.name}/")
-      cache_bust.call("/tags")
+      EdgeCache::Purger.purge_urls(urls)
     end
   end
 end

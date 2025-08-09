@@ -73,7 +73,8 @@ module Admin
         "#{link}/?i=i",
       ]
 
-      EdgeCache::Bust.call(paths)
+      urls = paths.map { |p| URL.url(p) }
+      EdgeCache::Purger.purge_urls(urls)
     end
   end
 end

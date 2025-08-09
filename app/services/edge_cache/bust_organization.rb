@@ -3,17 +3,17 @@ module EdgeCache
     def self.call(organization, slug)
       return unless organization && slug
 
-      cache_bust = EdgeCache::Bust.new
-
-      cache_bust.call("/#{slug}")
+      urls = [URL.url("/#{slug}")]
 
       begin
         organization.articles.find_each do |article|
-          cache_bust.call(article.path)
+          urls << URL.article(article)
         end
       rescue StandardError => e
         Rails.logger.error("Tag issue: #{e}")
       end
+
+      EdgeCache::Purger.purge_urls(urls)
     end
   end
 end
