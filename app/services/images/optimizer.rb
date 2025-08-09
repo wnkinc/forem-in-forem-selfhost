@@ -36,6 +36,10 @@ module Images
     def self.cloudflare(img_src, **kwargs)
       template = Addressable::Template.new("https://{domain}/{directory}/image/{options*}/{src}")
       fit = kwargs[:crop] == "crop" ? "cover" : "scale-down"
+       # NEW: ensure we pass only the path to Cloudflare (no https://origin)
+      raw_src  = extract_suffix_url(img_src) || img_src
+      src_path = URI.parse(raw_src).path.sub(%r{^/}, "")  # <-- keep only "/uploads/..."
+
       template.expand(
         domain: ApplicationConfig["CLOUDFLARE_IMAGES_DOMAIN"],
         directory: CLOUDFLARE_DIRECTORY,
@@ -46,7 +50,7 @@ module Images
           gravity: "auto",
           format: "auto"
         },
-        src: extract_suffix_url(img_src),
+        src: src_path  # <-- was: extract_suffix_url(img_src)
       ).to_s
     end
 

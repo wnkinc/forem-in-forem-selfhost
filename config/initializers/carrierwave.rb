@@ -22,21 +22,29 @@ module CarrierWaveInitializer
       config.storage = :fog
       config.fog_directory = ApplicationConfig["AWS_BUCKET_NAME"]
       config.fog_provider = "fog/aws"
+      # Serve public assets through our custom CDN domain:
+      config.asset_host = "https://cdn.adxict.com"
+      config.fog_public  = true
       config.fog_attributes = { cache_control: "public, max-age=#{365.days.to_i}" }
       config.fog_credentials = {
         provider: "AWS",
+        
         aws_access_key_id: ApplicationConfig["AWS_ID"],
         aws_secret_access_key: ApplicationConfig["AWS_SECRET"],
         region: ApplicationConfig["AWS_UPLOAD_REGION"].presence || ApplicationConfig["AWS_DEFAULT_REGION"],
         endpoint: ApplicationConfig["AWS_S3_ENDPOINT"],
         path_style: true,
         # disable all chunked / streaming signatures:
-        aws_signature_version:      4,
-        chunked_upload:             false,
-        aws_chunked:                false,
-        aws_chunked_threshold:      0,
-        aws_chunked_size_threshold: 0,
-        aws_unsigned_payload:       true,
+        aws_signature_version:          4,
+        chunked_upload:                 false,
+        aws_chunked:                    false,
+        aws_chunked_threshold:          0,
+        aws_chunked_size_threshold:     0,
+        aws_unsigned_payload:           true,
+
+        enable_signature_v4_streaming:  false,
+        sigv4_chunked_encoding:         false,
+        chunked_encoding:               false, 
       }
     end
   end
@@ -61,6 +69,10 @@ module CarrierWaveInitializer
         aws_chunked_threshold:      0,
         aws_chunked_size_threshold: 0,
         aws_unsigned_payload:       true,
+
+        enable_signature_v4_streaming:  false,
+        sigv4_chunked_encoding:         false,
+        chunked_encoding:               false, 
       }
     end
   end
