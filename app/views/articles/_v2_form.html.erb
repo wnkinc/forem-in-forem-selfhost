@@ -40,7 +40,6 @@
   data-article="<%= article.to_json(only: %i[id title cached_tag_list published published_at body_markdown main_image organization_id canonical_url updated_at], methods: %i[series all_series]) %>"
   data-organizations="<%= organizations&.to_json(only: %i[id name bg_color_hex text_color_hex], methods: [:profile_image_90]) %>"
   data-version="<%= version %>"
-  data-site-logo='<%= render "layouts/logo" %>'
   data-cover-image-height="<%= Settings::UserExperience.cover_image_height %>"
   data-cover-image-crop="<%= Settings::UserExperience.cover_image_fit %>"
   data-scheduling-enabled="<%= FeatureFlag.enabled?(:schedule_articles) %>">
@@ -100,6 +99,11 @@
     </div>
   </form>
 </main>
+
+<template id="site-logo-template">
+  <%= render "layouts/logo" %>
+</template>
+
 
 <div class="hidden">
   <%= render "pages/editor_markdown_help" %>

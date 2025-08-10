@@ -25,8 +25,15 @@ function loadForm() {
     window.csrfToken = csrfToken;
 
     const root = document.querySelector('main');
-    const { article, organizations, version, siteLogo, schedulingEnabled, coverImageHeight, coverImageCrop } =
-      root.dataset;
+    const {
+      article,
+      organizations,
+      version,
+      schedulingEnabled,
+      coverImageHeight,
+      coverImageCrop,
+    } = root.dataset;
+    const siteLogo = document.getElementById('site-logo-template').innerHTML;
     render(
       <ArticleForm
         article={article}
