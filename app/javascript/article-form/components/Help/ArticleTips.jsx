@@ -11,10 +11,10 @@ export const ArticleTips = () => (
         Ensure your post has a cover image set to make the most of the home feed
         and social media platforms.
       </li>
-      <li>
+      {/* <li>
         Share your post on social media platforms or with your co-workers or
         local communities.
-      </li>
+      </li> */}
       <li>
         Ask people to leave questions for you in the comments. It's a great way
         to spark additional discussion describing personally why you wrote it or
