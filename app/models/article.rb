@@ -665,14 +665,26 @@ class Article < ApplicationRecord
   def update_score
     base_subscriber_adjustment = user.base_subscriber? ? Settings::UserExperience.index_minimum_score : 0
     spam_adjustment = user.spam? ? -500 : 0
-    negative_reaction_adjustment = Reaction.where(reactable_id: user_id, reactable_type: "User").sum(:points)
+
+    # The anonymous account should not accrue author-level history. Remove this
+    # conditional to re-enable those adjustments for the account.
+    skip_author_history = user == User.anonymous_account
+
+    negative_reaction_adjustment = if skip_author_history
+                                     0
+                                   else
+                                     Reaction.where(reactable_id: user_id, reactable_type: "User").sum(:points)
+                                   end
 
     user_featured_count_adjustment = 0
-    featured_count = user.articles.featured.count
-    user_featured_count_adjustment = ([featured_count, 10].min + Math.log(featured_count + 1)).to_i
     user_negative_count_adjustment = 0
-    negative_count = user.articles.where("score < -10").count
-    user_negative_count_adjustment = -([negative_count, 3].min + Math.log(negative_count + 1)).to_i if negative_count.positive?
+    unless skip_author_history
+      featured_count = user.articles.featured.count
+      user_featured_count_adjustment = ([featured_count, 10].min + Math.log(featured_count + 1)).to_i
+
+      negative_count = user.articles.where("score < -10").count
+      user_negative_count_adjustment = -([negative_count, 3].min + Math.log(negative_count + 1)).to_i if negative_count.positive?
+    end
     # Context notes are currently only a positive indicator. In the future, they could be negative and this should be changed.
     context_note_adjustment = context_notes.size
 

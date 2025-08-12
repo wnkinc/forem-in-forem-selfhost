@@ -271,7 +271,7 @@ class User < ApplicationRecord
   def self.anonymous_account
     find_or_create_by!(email: "support@adxict.com") do |u|
       u.username = "Anonymous"
-      u.name = "Anonymous"
+      u.name = "anonymous"
       u.password = "123abcA!"
       u.password_confirmation = "123abcA!"
       u.confirmed_at = Time.current

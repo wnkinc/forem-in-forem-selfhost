@@ -1894,6 +1894,34 @@ RSpec.describe Article do
       expect(article.reload.score).to eq(score + 1)
     end
   end
+  describe "#update_score" do
+    context "when the user is the anonymous account" do
+      let(:anonymous_user) { create(:user, name: "Anonymous", username: "anonymous", email: "support@adxict.com") }
+      let(:article) { create(:article, user: anonymous_user) }
+
+      before do
+        allow(User).to receive(:anonymous_account).and_return(anonymous_user)
+        allow(BlackBox).to receive(:article_hotness_score).and_return(100)
+      end
+
+      it "ignores author history adjustments" do
+        article.update_score
+        base_score = article.reload.score
+
+        create(:article, user: anonymous_user, featured: true)
+        article.update_score
+        expect(article.reload.score).to eq(base_score)
+
+        create(:article, user: anonymous_user, score: -20)
+        article.update_score
+        expect(article.reload.score).to eq(base_score)
+
+        create(:thumbsdown_reaction, :user, reactable: anonymous_user)
+        article.update_score
+        expect(article.reload.score).to eq(base_score)
+      end
+    end
+  end
 
   describe "#feed_source_url and canonical_url must be unique for published articles" do
     let(:url) { "http://www.example.com" }
