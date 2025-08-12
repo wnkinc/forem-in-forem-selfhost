@@ -1,3 +1,5 @@
+require "fog/aws"
+
 module Images
   module Optimizer
     def self.call(img_src, **kwargs)
@@ -38,7 +40,10 @@ module Images
       fit = kwargs[:crop] == "crop" ? "cover" : "scale-down"
        # NEW: ensure we pass only the path to Cloudflare (no https://origin)
       raw_src  = extract_suffix_url(img_src) || img_src
-      src_path = URI.parse(raw_src).path.sub(%r{^/}, "")  # <-- keep only "/uploads/..."
+      src_path = URI.parse(raw_src).path.sub(%r{^/}, "")
+
+      # Ensure the image exists in R2 before asking Cloudflare to resize it
+      ensure_r2_object_exists(src_path)
 
       template.expand(
         domain: ApplicationConfig["CLOUDFLARE_IMAGES_DOMAIN"],
@@ -50,9 +55,42 @@ module Images
           gravity: "auto",
           format: "auto"
         },
-        src: src_path  # <-- was: extract_suffix_url(img_src)
+        src: src_path
       ).to_s
     end
+
+    # Check if an object exists in R2 (S3 compatible) before requesting a resize
+    def self.ensure_r2_object_exists(key, retries: 3, delay: 0.5)
+      bucket = ApplicationConfig["AWS_BUCKET_NAME"]
+      endpoint = ApplicationConfig["AWS_S3_ENDPOINT"]
+      access_key = ApplicationConfig["AWS_ID"]
+      secret_key = ApplicationConfig["AWS_SECRET"]
+
+      return if bucket.blank? || key.blank? || endpoint.blank? || access_key.blank? || secret_key.blank?
+
+      storage = Fog::Storage.new(
+        provider: "AWS",
+        aws_access_key_id: access_key,
+        aws_secret_access_key: secret_key,
+        region: ApplicationConfig["AWS_UPLOAD_REGION"].presence || ApplicationConfig["AWS_DEFAULT_REGION"],
+        endpoint: endpoint,
+        path_style: true
+      )
+
+      attempts = 0
+      begin
+        storage.head_object(bucket, key)
+      rescue Excon::Error::NotFound
+        attempts += 1
+        if attempts < retries
+          sleep(delay)
+          retry
+        end
+      rescue StandardError => e
+        Rails.logger.debug("R2 existence check failed for #{key}: #{e.message}")
+      end
+    end
+
 
     def self.cloudinary(img_src, **kwargs)
       options = DEFAULT_CL_OPTIONS.merge(kwargs).compact_blank

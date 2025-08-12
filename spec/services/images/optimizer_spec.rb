@@ -199,6 +199,7 @@ RSpec.describe Images::Optimizer, type: :service do
 
     before do
       allow(ApplicationConfig).to receive(:[]).with("CLOUDFLARE_IMAGES_DOMAIN").and_return("images.example.com")
+      allow(described_class).to receive(:ensure_r2_object_exists) # prevent real R2 calls
     end
 
     it "generates correct url based on h/w input" do

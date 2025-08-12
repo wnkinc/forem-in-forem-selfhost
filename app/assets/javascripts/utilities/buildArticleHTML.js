@@ -86,7 +86,8 @@ function buildArticleHTML(article, currentUserId = null) {
     return parsedDocument.body.innerHTML;
   }
 
-  if (article && article.class_name === 'User' && article.user === undefined) { // Represents different return values for how users are fetched.
+  if (article && article.class_name === 'User' && article.user === undefined) {
+    // Represents different return values for how users are fetched.
     const html = `
       <article class="crayons-story">
         <div class="crayons-story__body flex items-start gap-2">
@@ -123,7 +124,6 @@ function buildArticleHTML(article, currentUserId = null) {
 
     return parsedDocument.body.innerHTML;
   }
-
 
   if (article) {
     var container = document.getElementById('index-container');
@@ -226,11 +226,18 @@ function buildArticleHTML(article, currentUserId = null) {
       profileUsername = article.slug;
       userName = article.title;
     } else {
-      picUrl = article.user.profile_image_90.replace('media.dev.to/', 'media2.dev.to/').replace('/cdn-cgi/', '/dynamic/');
+      picUrl = article.user.profile_image_90.replace(
+        'media.dev.to/',
+        'media2.dev.to/',
+      );
       profileUsername = article.user.username;
       userName = filterXSS(article.user.name);
       if (article.user.cached_base_subscriber) {
-        userName = userName + ' <img class="subscription-icon" src="' + document.body.dataset.subscriptionIcon + '" alt="Subscriber" />';
+        userName =
+          userName +
+          ' <img class="subscription-icon" src="' +
+          document.body.dataset.subscriptionIcon +
+          '" alt="Subscriber" />';
       }
     }
     var orgHeadline = '';
@@ -248,7 +255,10 @@ function buildArticleHTML(article, currentUserId = null) {
         '" class="crayons-logo crayons-logo--l"><img alt="' +
         article.organization.name +
         ' logo" src="' +
-        article.organization.profile_image_90.replace('media.dev.to/', 'media2.dev.to/').replace('/cdn-cgi/', '/dynamic/') +
+        article.organization.profile_image_90.replace(
+          'media.dev.to/',
+          'media2.dev.to/',
+        ) +
         '" class="crayons-logo__image" loading="lazy"/></a>';
       forOrganization =
         '<span><span class="crayons-story__tertiary fw-normal"> for </span><a href="/' +
@@ -436,18 +446,32 @@ function buildArticleHTML(article, currentUserId = null) {
         ${navigationLink}\
         <div role="presentation">\
           ${videoHTML}\
-          <div class="crayons-story__body crayons-story__body-${article.type_of}">\
+          <div class="crayons-story__body crayons-story__body-${
+            article.type_of
+          }">\
             <div class="crayons-story__top">\
               ${meta}
             </div>\
             <div class="crayons-story__indention">
-              <h3 class="crayons-story__title crayons-story__title-${article.type_of}">
+              <h3 class="crayons-story__title crayons-story__title-${
+                article.type_of
+              }">
                 <a href="${article.path}" id="article-link-${article.id}">
                   ${filterXSS(article.title)}
                 </a>
               </h3>\
-              ${article.type_of !== 'status' ? `<div class="crayons-story__tags">${tagString}</div>` : ''}\
-              ${(article.type_of === 'status' && article.body_preview && article.body_preview.length > 10) ? `<div class="crayons-story__contentpreview text-styles">${article.body_preview}</div>` : '' }\
+              ${
+                article.type_of !== 'status'
+                  ? `<div class="crayons-story__tags">${tagString}</div>`
+                  : ''
+              }\
+              ${
+                article.type_of === 'status' &&
+                article.body_preview &&
+                article.body_preview.length > 10
+                  ? `<div class="crayons-story__contentpreview text-styles">${article.body_preview}</div>`
+                  : ''
+              }\
               ${searchSnippetHTML}\
               <div class="crayons-story__bottom">\
                 <div class="crayons-story__details">

@@ -5,7 +5,17 @@ class ArticleImageUploader < BaseUploader
   end
 
   def filename
-    "#{Array.new(20) { rand(36).to_s(36) }.join}.#{file.extension}" if original_filename.present?
+    return unless original_filename.present?
+
+    ext = (file&.extension.presence || File.extname(original_filename).delete(".") || "png")
+    base =
+      if model && model.respond_to?(:id) && model.id
+        "article-#{model.id}-social"
+      else
+        "social-image"
+      end
+
+    "#{base}.#{ext}"
   end
 
   def upload_from_url(url)
