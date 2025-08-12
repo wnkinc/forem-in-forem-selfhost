@@ -1,10 +1,14 @@
 require "open-uri"
 class ArticleImageUploader < BaseUploader
+  attr_writer :override_filename
+
   def store_dir
     "uploads/articles/"
   end
 
   def filename
+    return @override_filename if @override_filename
+
     "#{Array.new(20) { rand(36).to_s(36) }.join}.#{file.extension}" if original_filename.present?
   end
 
