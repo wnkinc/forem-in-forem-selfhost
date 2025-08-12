@@ -18,7 +18,8 @@ module Images
       if @resource.is_a?(Article)
         @user = @resource.user
         read_files
-        url = generate_magickally(title: @resource.title,
+        url = generate_magickally(article: @resource,
+                                  title: @resource.title,
                                   date: @resource.readable_publish_date,
                                   author_name: @user.name,
                                   color: @user.setting.brand_color1)
@@ -29,7 +30,8 @@ module Images
         @user = @resource
         read_files
         @resource.articles.published.where(organization_id: nil, main_image: nil).find_each do |article|
-          url = generate_magickally(title: article.title,
+          url = generate_magickally(article: article,
+                                    title: article.title,
                                     date: article.readable_publish_date,
                                     author_name: @user.name,
                                     color: @user.setting.brand_color1)
@@ -39,7 +41,8 @@ module Images
         @user = @resource
         read_files
         @resource.articles.published.where(main_image: nil).find_each do |article|
-          url = generate_magickally(title: article.title,
+          url = generate_magickally(article: article,
+                                    title: article.title,
                                     date: article.readable_publish_date,
                                     author_name: @user.name,
                                     color: @user.bg_color_hex)
@@ -53,12 +56,12 @@ module Images
 
     private
 
-    def generate_magickally(title: nil, date: nil, author_name: nil, color: nil)
+    def generate_magickally(article:, title: nil, date: nil, author_name: nil, color: nil)
       result = draw_stripe(color)
       result = add_logo(result)
       result = add_text(result, title, date, author_name)
       result = add_profile_image(result)
-      upload_result(result)
+      upload_result(result, article)
     end
 
     def draw_stripe(color)
@@ -141,10 +144,11 @@ module Images
       end
     end
 
-    def upload_result(result)
+    def upload_result(result, article)
       tempfile = Tempfile.new(["output", ".png"])
       result.write tempfile.path
       image_uploader = ArticleImageUploader.new.tap do |uploader|
+        uploader.override_filename = "social-#{article.id}.png"
         uploader.store!(tempfile)
       end
       # Don't forget to close and unlink (delete) the tempfile after you're done with it.

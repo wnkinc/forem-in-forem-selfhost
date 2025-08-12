@@ -68,6 +68,7 @@ RSpec.describe Images::GenerateSocialImageMagickally, type: :model do
         described_class.call(user)
         expect(generator).to have_received(:generate_magickally).once
           .with(
+            article: article,
             title: article.title,
             date: article.readable_publish_date,
             author_name: user.name,
@@ -267,6 +268,7 @@ RSpec.describe Images::GenerateSocialImageMagickally, type: :model do
           allow(result_image).to receive(:write)
 
           allow(ArticleImageUploader).to receive(:new).and_return(uploader)
+          allow(uploader).to receive(:override_filename=)
           allow(uploader).to receive(:store!)
           allow(uploader).to receive(:url).and_return("http://example.com/social_image.png")
 
@@ -274,11 +276,12 @@ RSpec.describe Images::GenerateSocialImageMagickally, type: :model do
         end
 
         it "creates a tempfile, writes the image, uploads the image, then cleans up the tempfile" do
-          expect(generator.send(:upload_result, result_image)).to eq "http://example.com/social_image.png"
+          expect(generator.send(:upload_result, result_image, article)).to eq "http://example.com/social_image.png"
 
           expect(Tempfile).to have_received(:new).with(["output", ".png"])
           expect(result_image).to have_received(:write).with(tempfile.path)
           expect(ArticleImageUploader).to have_received(:new)
+          expect(uploader).to have_received(:override_filename=).with("social-#{article.id}.png")
           expect(uploader).to have_received(:store!).with(tempfile)
           expect(tempfile).to have_received(:close)
           expect(tempfile).to have_received(:unlink)
